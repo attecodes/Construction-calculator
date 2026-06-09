@@ -1,0 +1,368 @@
+:root {
+  --bg: #16191f;
+  --panel: #1f242d;
+  --panel-2: #262c37;
+  --border: #343c4a;
+  --text: #eef1f5;
+  --text-dim: #9aa4b2;
+  --accent: #f5a524;
+  --accent-text: #1a1304;
+  --green: #34c77b;
+  --red: #ef5350;
+  --blue: #4d9fff;
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px 12px 48px;
+}
+
+.app-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 4px 4px 14px;
+}
+
+.app-header h1 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.app-header span {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+}
+
+/* ---------- Tabs ---------- */
+.tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tab {
+  flex: 0 0 auto;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text-dim);
+  border-radius: 999px;
+  padding: 9px 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+/* ---------- Cards / forms ---------- */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.card h2 {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+}
+
+.card p.hint {
+  margin: 0 0 14px;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.field {
+  margin-bottom: 12px;
+}
+
+.field label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 1.05rem;
+  padding: 11px 12px;
+  outline: none;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--accent);
+}
+
+.field input.invalid {
+  border-color: var(--red);
+}
+
+.field .preview {
+  font-size: 0.8rem;
+  color: var(--green);
+  margin-top: 4px;
+  min-height: 1.1em;
+}
+
+.field .preview.error {
+  color: var(--red);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* ---------- Results ---------- */
+.results {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-top: 8px;
+}
+
+.result-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.result-line:last-child {
+  border-bottom: none;
+}
+
+.result-line .label {
+  color: var(--text-dim);
+  font-size: 0.88rem;
+}
+
+.result-line .value {
+  font-weight: 700;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.result-line .value.big {
+  color: var(--accent);
+  font-size: 1.25rem;
+}
+
+.warning {
+  background: rgba(245, 165, 36, 0.12);
+  border: 1px solid rgba(245, 165, 36, 0.5);
+  color: var(--accent);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 0.85rem;
+  margin-top: 10px;
+}
+
+.error-box {
+  background: rgba(239, 83, 80, 0.12);
+  border: 1px solid rgba(239, 83, 80, 0.5);
+  color: var(--red);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.marks-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.marks-table th,
+.marks-table td {
+  text-align: right;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.marks-table th {
+  color: var(--text-dim);
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.marks-table td:first-child,
+.marks-table th:first-child {
+  text-align: left;
+}
+
+/* ---------- Calculator ---------- */
+.calc-display {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  min-height: 108px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.calc-history {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  min-height: 1.3em;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.calc-main {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: right;
+  word-break: break-all;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.calc-main.error {
+  color: var(--red);
+  font-size: 1.2rem;
+}
+
+.calc-sub {
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  text-align: right;
+  min-height: 1.2em;
+  margin-top: 4px;
+}
+
+.calc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.calc-btn {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  border-radius: 10px;
+  font-size: 1.35rem;
+  font-weight: 600;
+  padding: 16px 0;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.calc-btn:active {
+  background: var(--panel-2);
+}
+
+.calc-btn.op {
+  background: var(--panel-2);
+  color: var(--accent);
+}
+
+.calc-btn.danger {
+  color: var(--red);
+}
+
+.calc-btn.unit {
+  color: var(--blue);
+  font-size: 1.1rem;
+}
+
+.calc-btn.equals {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.calc-btn.span-2 {
+  grid-column: span 2;
+}
+
+.denom-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.denom-row span {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  margin-right: 4px;
+}
+
+.denom-btn {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text-dim);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.denom-btn.active {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+footer.app-footer {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  margin-top: 24px;
+  line-height: 1.5;
+}

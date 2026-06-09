@@ -1,0 +1,49 @@
+# Carpenter's Calculator
+
+A construction calculator web app for finish carpenters, in the spirit of the
+Construction Master Pro. Built with Next.js + React + TypeScript, ready to
+deploy on Vercel.
+
+## Tools
+
+- **Tape Calculator** — feet-inch-fraction math with exact fraction
+  arithmetic. Enter values like a Construction Master (`3 Ft 5 In 3 / 8` →
+  `3' 5-3/8"`), do `+ − × ÷`, and get results rounded to your choice of
+  1/8, 1/16, 1/32, or 1/64. Unit-aware: length × length = area,
+  area × length = volume, with sq ft / cu yd conversions. Full keyboard
+  support (`f` = Ft, `i` = In, `/` = fraction, `d` = divide).
+- **Baluster Layout** — enter the clear opening, baluster width, and max gap
+  (defaults to 3-7/8" for the 4" sphere rule) and get the count, equal
+  spacing, and a tape-ready list of layout marks (centerline or near-edge).
+- **Stair Stringer** — total rise in, riser count/height, total run,
+  stringer length, and angle out, with IRC riser/tread warnings and the
+  2R + T comfort check.
+- **Crown Molding** — miter & bevel angles for flat cutting at any spring
+  angle (38/45/52 presets) and corner angle.
+- **Board Feet** — lumber volume and cost estimating.
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+Run the math sanity checks:
+
+```bash
+npx tsx lib/__sanity__.ts
+```
+
+## Deploy to Vercel
+
+Push this repo to GitHub, then import it at
+[vercel.com/new](https://vercel.com/new) — no configuration needed. Or with
+the CLI:
+
+```bash
+npm i -g vercel
+vercel
+```
