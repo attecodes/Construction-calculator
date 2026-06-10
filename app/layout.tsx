@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
+import { SettingsProvider } from "@/components/SettingsContext";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -35,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <SettingsProvider>{children}</SettingsProvider>
         <ServiceWorkerRegister />
       </body>
     </html>

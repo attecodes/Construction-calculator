@@ -50,6 +50,24 @@ body {
   font-size: 0.8rem;
 }
 
+.icon-btn {
+  margin-left: auto;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text-dim);
+  border-radius: 8px;
+  font-size: 1.1rem;
+  padding: 6px 11px;
+  cursor: pointer;
+  align-self: center;
+}
+
+.icon-btn[aria-expanded="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
 /* ---------- Tabs ---------- */
 .tabs {
   display: flex;

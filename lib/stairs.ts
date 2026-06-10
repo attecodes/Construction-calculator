@@ -1,7 +1,7 @@
 // Stair stringer math: total rise -> riser count & height, run, stringer
 // length, and angle. IRC residential limits: riser <= 7-3/4", tread >= 10".
 
-import { Rational, rat, toNumber, formatLength } from "./fraction";
+import { Rational, rat, toNumber, formatLength, LengthStyle } from "./fraction";
 
 export interface StairResult {
   risers: number;
@@ -22,7 +22,8 @@ export interface StairResult {
 export function calcStairs(
   totalRise: Rational,
   treadDepth: Rational,
-  maxRiser: Rational
+  maxRiser: Rational,
+  style: LengthStyle = "ftin"
 ): StairResult | { error: string } {
   const rise = toNumber(totalRise);
   const tread = toNumber(treadDepth);
@@ -54,19 +55,19 @@ export function calcStairs(
   return {
     risers,
     riserHeight,
-    riserHeightText: fmt(riserHeight),
+    riserHeightText: fmt(riserHeight, style),
     treads,
-    treadDepthText: fmt(tread),
+    treadDepthText: fmt(tread, style),
     totalRun,
-    totalRunText: fmt(totalRun),
+    totalRunText: fmt(totalRun, style),
     stringerLength,
-    stringerLengthText: fmt(stringerLength),
+    stringerLengthText: fmt(stringerLength, style),
     angleDeg,
     comfort,
     warnings,
   };
 }
 
-function fmt(inches: number): string {
-  return formatLength(rat(Math.round(inches * 16), 16)).text;
+function fmt(inches: number, style: LengthStyle): string {
+  return formatLength(rat(Math.round(inches * 16), 16), 16, style).text;
 }

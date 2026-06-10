@@ -4,18 +4,20 @@ import { useState } from "react";
 import LengthInput from "./LengthInput";
 import { parseLength } from "@/lib/fraction";
 import { layoutBalusters } from "@/lib/baluster";
+import { useSettings } from "./SettingsContext";
 
 export default function BalusterCalc() {
   const [opening, setOpening] = useState("");
   const [width, setWidth] = useState("1-1/2");
   const [maxGap, setMaxGap] = useState("3-7/8");
   const [fromEdge, setFromEdge] = useState(false);
+  const { settings } = useSettings();
 
   const L = parseLength(opening);
   const w = parseLength(width);
   const g = parseLength(maxGap);
 
-  const result = L && w && g ? layoutBalusters(L, w, g) : null;
+  const result = L && w && g ? layoutBalusters(L, w, g, settings.units) : null;
 
   return (
     <div className="card">

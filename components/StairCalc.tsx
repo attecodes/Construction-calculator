@@ -4,17 +4,19 @@ import { useState } from "react";
 import LengthInput from "./LengthInput";
 import { parseLength } from "@/lib/fraction";
 import { calcStairs } from "@/lib/stairs";
+import { useSettings } from "./SettingsContext";
 
 export default function StairCalc() {
   const [rise, setRise] = useState("");
   const [tread, setTread] = useState("10");
   const [maxRiser, setMaxRiser] = useState("7-3/4");
+  const { settings } = useSettings();
 
   const r = parseLength(rise);
   const t = parseLength(tread);
   const m = parseLength(maxRiser);
 
-  const result = r && t && m ? calcStairs(r, t, m) : null;
+  const result = r && t && m ? calcStairs(r, t, m, settings.units) : null;
 
   return (
     <div className="card">

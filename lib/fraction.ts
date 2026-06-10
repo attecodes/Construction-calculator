@@ -111,17 +111,25 @@ export interface FormattedLength {
   rounded: boolean;
 }
 
+/** How to display lengths: feet-and-inches, or total inches only. */
+export type LengthStyle = "ftin" | "in";
+
 /**
- * Format rational inches as feet-inches-fraction, rounded to the nearest
- * 1/`denom` (default 16).
+ * Format rational inches as feet-inches-fraction (or total inches when
+ * style is "in"), rounded to the nearest 1/`denom` (default 16).
  */
-export function formatLength(len: Rational, denom = 16): FormattedLength {
+export function formatLength(
+  len: Rational,
+  denom = 16,
+  style: LengthStyle = "ftin"
+): FormattedLength {
   const sign = len.n < 0 ? "-" : "";
   const totalSixteenthsExact = Math.abs(toNumber(len)) * denom;
   const sixteenths = Math.round(totalSixteenthsExact);
   const rounded = Math.abs(totalSixteenthsExact - sixteenths) > 1e-9;
 
-  const feet = Math.floor(sixteenths / (12 * denom));
+  const feet =
+    style === "in" ? 0 : Math.floor(sixteenths / (12 * denom));
   let rem = sixteenths - feet * 12 * denom;
   const whole = Math.floor(rem / denom);
   let num = rem - whole * denom;

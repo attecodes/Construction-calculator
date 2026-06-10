@@ -1,7 +1,7 @@
 // Baluster / spindle layout: evenly space balusters in an opening so no
 // gap exceeds the code maximum (4" sphere rule -> default max gap 3-7/8").
 
-import { Rational, rat, toNumber, formatLength } from "./fraction";
+import { Rational, rat, toNumber, formatLength, LengthStyle } from "./fraction";
 
 export interface BalusterResult {
   count: number;
@@ -20,7 +20,8 @@ export interface BalusterResult {
 export function layoutBalusters(
   opening: Rational,
   balusterWidth: Rational,
-  maxGap: Rational
+  maxGap: Rational,
+  style: LengthStyle = "ftin"
 ): BalusterResult | { error: string } {
   const L = toNumber(opening);
   const w = toNumber(balusterWidth);
@@ -36,7 +37,7 @@ export function layoutBalusters(
       onCenter: 0,
       centers: [],
       edges: [],
-      gapText: formatLength(opening).text,
+      gapText: formatLength(opening, 16, style).text,
       onCenterText: "—",
     };
   }
@@ -53,8 +54,8 @@ export function layoutBalusters(
   const edges: string[] = [];
   for (let i = 1; i <= n; i++) {
     const edge = i * gap + (i - 1) * w;
-    centers.push(fmt(edge + w / 2));
-    edges.push(fmt(edge));
+    centers.push(fmt(edge + w / 2, style));
+    edges.push(fmt(edge, style));
   }
 
   return {
@@ -63,11 +64,11 @@ export function layoutBalusters(
     onCenter,
     centers,
     edges,
-    gapText: fmt(gap),
-    onCenterText: fmt(onCenter),
+    gapText: fmt(gap, style),
+    onCenterText: fmt(onCenter, style),
   };
 }
 
-function fmt(inches: number): string {
-  return formatLength(rat(Math.round(inches * 16), 16)).text;
+function fmt(inches: number, style: LengthStyle): string {
+  return formatLength(rat(Math.round(inches * 16), 16), 16, style).text;
 }

@@ -13,6 +13,7 @@ import {
   formatLength,
   formatScalar,
   trimNumber,
+  LengthStyle,
 } from "./fraction";
 
 export interface CalcValue {
@@ -52,18 +53,24 @@ export interface DisplayLines {
   sub: string[];
 }
 
-export function formatValue(val: CalcValue, denom = 16): DisplayLines {
+export function formatValue(
+  val: CalcValue,
+  denom = 16,
+  style: LengthStyle = "ftin"
+): DisplayLines {
   const x = toNumber(val.v);
   switch (val.dim) {
     case 0:
       return { main: formatScalar(val.v), sub: dualScalar(val.v) };
     case 1: {
-      const f = formatLength(val.v, denom);
+      const f = formatLength(val.v, denom, style);
+      const alt = formatLength(val.v, denom, style === "in" ? "ftin" : "in");
       const sub = [
         `${trimNumber(x)} in`,
         `${trimNumber(x / 12)} ft`,
         `${trimNumber(x * 25.4, 1)} mm`,
       ];
+      if (alt.text !== f.text) sub.unshift(alt.text);
       if (f.rounded) sub.unshift(`rounded to nearest 1/${denom}"`);
       return { main: f.text, sub };
     }

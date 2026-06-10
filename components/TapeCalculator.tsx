@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { rat, add, mul, div, Rational } from "@/lib/fraction";
 import { CalcValue, Op, applyOp, formatValue } from "@/lib/calc";
+import { useSettings } from "./SettingsContext";
 
 // Entry being keyed in, Construction Master style:
 //   3 [Ft] 5 [In] 3 [/] 8   ->   3' 5-3/8"
@@ -67,9 +68,11 @@ export default function TapeCalculator() {
   const [result, setResult] = useState<CalcValue | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [denom, setDenom] = useState(16);
+  const { settings, buzz } = useSettings();
 
   const press = useCallback(
     (key: string) => {
+      buzz();
       setError(null);
 
       const digit = /^[0-9]$/.test(key);
@@ -178,7 +181,7 @@ export default function TapeCalculator() {
         }
       }
     },
-    [acc, pendingOp, entry, result]
+    [acc, pendingOp, entry, result, buzz]
   );
 
   // Physical keyboard support
@@ -217,7 +220,7 @@ export default function TapeCalculator() {
 
   const historyText =
     acc !== null && pendingOp !== null
-      ? `${formatValue(acc, denom).main} ${OP_LABEL[pendingOp]}`
+      ? `${formatValue(acc, denom, settings.units).main} ${OP_LABEL[pendingOp]}`
       : "";
 
   let main: string;
@@ -227,11 +230,11 @@ export default function TapeCalculator() {
   } else if (!entryIsEmpty(entry)) {
     main = entryText(entry);
   } else if (result !== null) {
-    const f = formatValue(result, denom);
+    const f = formatValue(result, denom, settings.units);
     main = f.main;
     sub = f.sub;
   } else if (acc !== null) {
-    main = formatValue(acc, denom).main;
+    main = formatValue(acc, denom, settings.units).main;
   } else {
     main = "0";
   }
@@ -244,7 +247,10 @@ export default function TapeCalculator() {
           <button
             key={d}
             className={`denom-btn ${denom === d ? "active" : ""}`}
-            onClick={() => setDenom(d)}
+            onClick={() => {
+              buzz();
+              setDenom(d);
+            }}
           >
             1/{d}
           </button>

@@ -31,6 +31,15 @@ check("format 0.5", formatLength(rat(1, 2)).text, `1/2"`);
 check("format 24", formatLength(rat(24)).text, `2' 0"`);
 check("format rounds", formatLength(rat(1, 3)).text, `5/16"`);
 
+// --- inches-only display style ---
+check("format 41.375 in-only", formatLength(rat(331, 8), 16, "in").text, `41-3/8"`);
+check("format 24 in-only", formatLength(rat(24), 16, "in").text, `24"`);
+check(
+  "calc in-only",
+  formatValue({ v: rat(331, 8), dim: 1 }, 16, "in").main,
+  `41-3/8"`
+);
+
 // --- calculator math ---
 const a = { v: parseLength(`5-3/8`)!, dim: 1 };
 const b = { v: parseLength(`3/4`)!, dim: 1 };

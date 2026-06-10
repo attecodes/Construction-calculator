@@ -1,6 +1,7 @@
 "use client";
 
 import { parseLength, formatLength } from "@/lib/fraction";
+import { useSettings } from "./SettingsContext";
 
 interface Props {
   label: string;
@@ -16,6 +17,7 @@ export default function LengthInput({
   onChange,
   placeholder,
 }: Props) {
+  const { settings } = useSettings();
   const parsed = value.trim() ? parseLength(value) : null;
   const invalid = value.trim() !== "" && parsed === null;
 
@@ -36,7 +38,7 @@ export default function LengthInput({
         {invalid
           ? `Can't read that — try 3' 5-3/8" or 41 3/4`
           : parsed
-            ? `= ${formatLength(parsed).text}`
+            ? `= ${formatLength(parsed, 16, settings.units).text}`
             : ""}
       </div>
     </div>
